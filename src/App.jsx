@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import Waveform from "./components/Waveform";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [btnPressed, setBtnPressed] = useState(false);
+  const [audioStream, setAudioStream] = useState(null);
+
+  async function startRecording() {
+    let tempStream;
+    console.log("start recording");
+
+    try {
+      tempStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+
+    setAudioStream(tempStream);
+  }
+
+  function stopRecording() {
+    audioStream.getTracks().forEach(track => track.stop());
+    setAudioStream(null);
+    console.log("stop recording");
+  }
+
+  function toggleRecording() {
+    if (audioStream) {
+      setBtnPressed(false);
+      stopRecording();
+    } else {
+      setBtnPressed(true);
+      startRecording();
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    // Screen
+    <div className="flex flex-row mx-auto w-full bg-blue-100 justify-center text-center p-4 min-h-screen">
+      {/* Main */}
+      <main className="flex flex-col bg-white rounded-md min-w-[800px]">
+        {/* Header */}
+        <h1 className="text-4xl p-5 borders">
+          Realtime Waveform Visualization
+        </h1>
 
-export default App
+        {/* Control panel */}
+        <div className="flex flex-row h-[100px] borders">
+          <div className="flex flex-col justify-center borders mx-auto w-[30%] borders">
+            <button className="flex px-4 py-2 mx-5 rounded-xl justify-center bg-gray-100 borders" onClick={toggleRecording}>{btnPressed ? "Pause" : "Play"}</button>
+          </div>
+          <div className="flex flex-col justify-center borders mx-auto w-[70%] borders">
+            <div className="flex flex-col borders">controller</div>
+          </div>
+        </div>
+
+        {/* Waveform visualization */}
+        <div className="flex min-h-[400px] borders">visualization
+          <Waveform audioStream={audioStream} />
+        </div>
+
+        {/* Footer */}
+        <footer className="borders">footer</footer>
+      </main>
+    </div>
+  );
+}
