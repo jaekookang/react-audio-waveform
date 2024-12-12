@@ -3,35 +3,29 @@ import React, { useState } from "react";
 import Waveform from "./components/Waveform";
 
 export default function App() {
-  const [btnPressed, setBtnPressed] = useState(false);
-  const [audioStream, setAudioStream] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [audioSource, setAudioSource] = useState(null);
 
   async function startRecording() {
-    let tempStream;
-    console.log("start recording");
-
     try {
-      tempStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      setAudioSource(stream);
+      setIsRecording(true);
     } catch (err) {
-      console.log(err);
-      return;
+      console.error(err);
     }
-
-    setAudioStream(tempStream);
   }
 
   function stopRecording() {
-    audioStream.getTracks().forEach(track => track.stop());
-    setAudioStream(null);
-    console.log("stop recording");
+    audioSource?.getTracks().forEach(track => track.stop());
+    setAudioSource(null);
+    setIsRecording(false);
   }
 
   function toggleRecording() {
-    if (audioStream) {
-      setBtnPressed(false);
+    if (isRecording) {
       stopRecording();
     } else {
-      setBtnPressed(true);
       startRecording();
     }
   }
@@ -49,7 +43,9 @@ export default function App() {
         {/* Control panel */}
         <div className="flex flex-row h-[100px] borders">
           <div className="flex flex-col justify-center borders mx-auto w-[30%] borders">
-            <button className="flex px-4 py-2 mx-5 rounded-xl justify-center bg-gray-100 borders" onClick={toggleRecording}>{btnPressed ? "Pause" : "Play"}</button>
+            <button className="flex px-4 py-2 mx-5 rounded-xl justify-center bg-gray-100 borders" onClick={toggleRecording}>
+              {isRecording ? "Pause" : "Play"}
+            </button>
           </div>
           <div className="flex flex-col justify-center borders mx-auto w-[70%] borders">
             <div className="flex flex-col borders">controller</div>
@@ -57,8 +53,8 @@ export default function App() {
         </div>
 
         {/* Waveform visualization */}
-        <div className="flex min-h-[400px] borders">visualization
-          <Waveform audioStream={audioStream} />
+        <div className="flex min-h-[400px] borders">
+          {audioSource ? <Waveform audioSource={audioSource} /> : "no audio"}
         </div>
 
         {/* Footer */}
