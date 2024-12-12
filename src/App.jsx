@@ -5,6 +5,7 @@ import Waveform from "./components/Waveform";
 export default function App() {
   const [isRecording, setIsRecording] = useState(false);
   const [audioSource, setAudioSource] = useState(null);
+  const [windowLength, setWindowLength] = useState(2);
 
   async function startRecording() {
     try {
@@ -48,7 +49,20 @@ export default function App() {
             </button>
           </div>
           <div className="flex flex-col justify-center borders mx-auto w-[70%] borders">
-            <div className="flex flex-col borders">controller</div>
+            <div className="flex flex-row borders">
+              <label htmlFor="windowLength" className="my-auto">Waveform Window Length (seconds):</label>
+              <input
+                type="number"
+                id="windowLength"
+                className="px-2 py-1 border rounded"
+                min="1"
+                defaultValue="2"
+                onChange={(e) => setWindowLength(e.target.value)}
+              />
+              <button className="flex px-4 mx-auto my-auto rounded-xl justify-center bg-gray-100 borders">
+              Apply
+              </button>
+            </div>
           </div>
         </div>
 

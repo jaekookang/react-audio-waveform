@@ -34,9 +34,9 @@ export default function Visualizer({ audioData }) {
       const y = (value / 255) * canvas.height;
 
       if (index === 0) {
-        ctx.moveTo(x, y);
+        ctx.moveTo(x, y); // sets the starting point
       } else {
-        ctx.lineTo(x, y);
+        ctx.lineTo(x, y); // draws to the next point
       }
     });
 
