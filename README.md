@@ -1,9 +1,12 @@
 # React Audio Waveform
 
-Status: working
+Status: in-progress
+
+![main](src/assets/main.png)
 
 - Reference:
     - https://github.com/philnash/react-web-audio (blog: https://www.twilio.com/blog/audio-visualisation-web-audio-api--react)
+    
 
 ---
 - 2024-12-10 jkang first created
@@ -14,3 +17,4 @@ Status: working
     - [x] issue: incompatiblity between Uint8Array and Float32Array => needs fixing
     - [x] fixed the css issue
         - TODO: check why className is not dynamically updated when used with {`min-w-[${panelMinWidth}px]`}. It worked for a while then suddenly stopped working.
+        - TODO: Refactor the code. Currently, it is messy.
