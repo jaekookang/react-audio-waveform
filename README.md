@@ -2,6 +2,10 @@
 
 Status: in-progress
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/81e40c37-4e97-4730-90cd-a66f6c942cf0/deploy-status)](https://app.netlify.com/sites/react-waveform/deploys)
+
+## Demo: https://react-waveform.netlify.app/
+
 ![main](src/assets/main.png)
 
 - Reference:
