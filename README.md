@@ -1,5 +1,7 @@
 # React Audio Waveform
 
+Status: working
+
 - Reference:
     - https://github.com/philnash/react-web-audio (blog: https://www.twilio.com/blog/audio-visualisation-web-audio-api--react)
 
@@ -9,4 +11,6 @@
     - Sampling rate: 48000, Frequency bins: 2024, Time domain: 1024 samples => window size: 2048, roughly 42.6 ms
 - 2024-12-12 Visualizer.jsx working (using cursor ai)
 - 2024-12-16 sampling rate
-    - issue: incompatiblity between Uint8Array and Float32Array => needs fixing
+    - [x] issue: incompatiblity between Uint8Array and Float32Array => needs fixing
+    - [x] fixed the css issue
+        - TODO: check why className is not dynamically updated when used with {`min-w-[${panelMinWidth}px]`}. It worked for a while then suddenly stopped working.

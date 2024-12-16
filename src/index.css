@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .borders {
-  border: 0.7px dashed black;
+  /* border: 0.7px dashed black; */
 }
