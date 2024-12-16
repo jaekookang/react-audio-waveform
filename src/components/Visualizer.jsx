@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 
 export default function Visualizer({ audioData, windowLength, frameRate, panelMinWidth, sampleRate }) {
   const canvasRef = useRef(null);
-  const bufferRef = useRef(new Uint8Array(100 * windowLength * frameRate).fill(128));
+  const bufferRef = useRef(new Uint8Array(1024 * windowLength * frameRate).fill(128));
 
   // Update buffer size dynamically
   useEffect(() => {
@@ -12,6 +12,29 @@ export default function Visualizer({ audioData, windowLength, frameRate, panelMi
 
   // Resample audio data
   // FIX: some arrays are Float32Array, some are Uint8Array
+
+  const convertFloat32ToUint8 = (float32Array) => {
+    const newUint8Array = new Uint8Array(float32Array.length);
+    for (let i=0; i < float32Array.length; i++) {
+      newUint8Array[i] = Math.round(float32Array[i] * 255);
+    }
+    return newUint8Array;
+  }
+
+  const convertUint8toFloat32 = (uint8Array) => {
+    // START FROM HERE!!!
+
+
+
+
+
+
+
+    
+
+
+
+  }
 
   const resampleAudioData = async (audioData, sampleRate) => {  
     if (audioData.length === 0) return new Float32Array(0);

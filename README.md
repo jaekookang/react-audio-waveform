@@ -8,3 +8,5 @@
 - 2024-12-11 Waveform.jsx working
     - Sampling rate: 48000, Frequency bins: 2024, Time domain: 1024 samples => window size: 2048, roughly 42.6 ms
 - 2024-12-12 Visualizer.jsx working (using cursor ai)
+- 2024-12-16 sampling rate
+    - issue: incompatiblity between Uint8Array and Float32Array => needs fixing
